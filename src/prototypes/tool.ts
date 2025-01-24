@@ -72,6 +72,10 @@ export class Tool<
         return typeof this._description === "function" ? this._description(this.toolConfigOptions as z.infer<TOOL_OPTIONS_SCHEMA>) : this._description;
     }
 
+    testTool({ toolParameters, toolConfigOptions }: { toolParameters: z.infer<FUNCTION_PARAMETERS>; toolConfigOptions: z.infer<TOOL_OPTIONS_SCHEMA> }) {
+        return this._execute({ toolParameters, toolConfigOptions, spawnAgent: Agent.executeAgentLoop });
+    }
+
     async execute({
         toolParameters: unsafeToolParameters,
         spawnAgent,
