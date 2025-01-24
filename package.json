@@ -4,7 +4,8 @@
     "scripts": {
         "build": "tsup && tsc --emitDeclarationOnly --outDir dist",
         "dev": "tsup --watch",
-        "test": "ts-node ./src/tests/Prompt.tsx"
+        "test": "ts-node ./src/tests/Prompt.tsx",
+        "publish": "bun run build && npm version patch && npm publish"
     },
     "main": "./dist/index.js",
     "exports": {
