@@ -1,6 +1,6 @@
 {
     "name": "@dubdubdublabs/agent-sdk",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "scripts": {
         "build": "tsup && tsc --emitDeclarationOnly --outDir dist",
         "dev": "tsup --watch",
