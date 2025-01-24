@@ -70,8 +70,6 @@ export abstract class LLM<T extends string = string> {
             });
         }
 
-        console.log(tools)
-
         const result = await generateText({
             model: this.model,
             ...(system !== "" && system !== undefined ? { system } : {}),
