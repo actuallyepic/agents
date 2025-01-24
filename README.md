@@ -3,7 +3,7 @@
 An SDK for quickly prototyping traditional (while loop w/ tools) agents. 
 
 ```ts
-import { Agent, Tool } from "../src";
+import { Agent, Tool } from "@dubdubdublabs/agent-sdk";
 import { z } from "zod";
 
 const tool1 = new Tool({
@@ -36,3 +36,4 @@ const agent = Agent.create({
     availableTools: [tool1.configure({ toolConfigOptions: { startRange: 100, endRange: 1000 } })],
     instructions: "Call the start tool",
 });
+```
