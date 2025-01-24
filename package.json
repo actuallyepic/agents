@@ -1,0 +1,30 @@
+{
+    "name": "@dubdubdublabs/agent-sdk",
+    "version": "0.0.0",
+    "scripts": {
+        "build": "tsup && tsc --emitDeclarationOnly --outDir dist",
+        "dev": "tsup --watch",
+        "test": "ts-node ./src/tests/Prompt.tsx"
+    },
+    "main": "./dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "@ai-sdk/anthropic": "^0.0.51",
+        "@ai-sdk/openai": "latest",
+        "@ai-sdk/provider": "^0.0.24",
+        "ai": "latest",
+        "zod-to-json-schema": "^3.23.3"
+    },
+    "devDependencies": {
+        "tsup": "^8.0.1",
+        "prettier": "^3.3.3",
+        "typescript": "^5.5.4",
+        "@types/node": "^20.11.18"
+    }
+}
