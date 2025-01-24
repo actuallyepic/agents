@@ -3,7 +3,7 @@
     "version": "0.0.12",
     "scripts": {
         "build": "tsup && tsc --emitDeclarationOnly --outDir dist",
-        "dev": "tsup --watch",
+        "dev": "bun --watch sample/simple.ts",
         "test": "ts-node ./src/tests/Prompt.tsx",
         "publish": "bun run build && npm version patch && npm publish"
     },
@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@ai-sdk/anthropic": "^0.0.51",
+        "@ai-sdk/google": "^1.1.2",
         "@ai-sdk/openai": "latest",
         "@ai-sdk/provider": "^0.0.24",
         "ai": "latest",

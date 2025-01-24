@@ -73,10 +73,10 @@ export class Agent<MODELS extends [LLMType, ...LLMType[]] = any, AVAILABLE_TOOLS
         this.agentConfigs = config.agentConfigs ?? {};
     }
 
-    async executeLoop({ input, messages, afterToolCalls }: { input: AgentInput, messages?: Message[], afterToolCalls?: (toolCalls: ToolCallResultsWithMetadata) => AgentInput }): Promise<string> {
+    async executeLoop({ input, messages, afterToolCalls, verboseLogging = false }: { input: AgentInput, messages?: Message[], afterToolCalls?: (toolCalls: ToolCallResultsWithMetadata) => AgentInput, verboseLogging?: boolean }): Promise<string> {
         // First run the agent
         let currentCall = await this.execute({ input, messages });
-        console.log(currentCall);
+        if (verboseLogging) console.dir(currentCall, { depth: null });
 
         // Then run the tool calls
         while (currentCall.finishReason === "tool-calls") {
@@ -86,15 +86,15 @@ export class Agent<MODELS extends [LLMType, ...LLMType[]] = any, AVAILABLE_TOOLS
                     const call = await this.toolCall({ toolName: toolCall.toolName, toolCallId: toolCall.toolCallId, toolParameters: toolCall.args, spawnAgent: Agent.executeAgentLoop })
                     return call
                 } catch (e) {
-                    console.log(e);
+                    if (verboseLogging) console.dir(e, { depth: null });
                     return null;
                 }
             }));
 
-            console.log(calls);
+            if (verboseLogging) console.dir(calls, { depth: null });
 
             // Execute the agent again with the results of the tool calls
-            const afterResults = afterToolCalls?.(calls.filter(call => call !== null));
+            const afterResults = afterToolCalls?.(calls.filter((call) => call !== null));
             const afterArray = afterResults ? (Array.isArray(afterResults) ? afterResults : [afterResults]) : [];
             currentCall = await this.execute({ 
                 input: [
@@ -103,10 +103,10 @@ export class Agent<MODELS extends [LLMType, ...LLMType[]] = any, AVAILABLE_TOOLS
                 ], 
                 messages: currentCall.messages 
             });
-            console.log(currentCall);
+            if (verboseLogging) console.dir(currentCall, { depth: null });
         }
 
-        console.log(currentCall.text);
+        if (verboseLogging) console.log(currentCall.text);
 
         // Return the final result
         return currentCall.text
