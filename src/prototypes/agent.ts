@@ -73,9 +73,9 @@ export class Agent<MODELS extends [LLMType, ...LLMType[]] = any, AVAILABLE_TOOLS
         this.agentConfigs = config.agentConfigs ?? {};
     }
 
-    async executeLoop({ input, messages, afterToolCalls, verboseLogging = false }: { input: AgentInput, messages?: Message[], afterToolCalls?: (toolCalls: ToolCallResultsWithMetadata) => AgentInput, verboseLogging?: boolean }): Promise<string> {
+    async executeLoop({ input, messages, model, tools, afterToolCalls, verboseLogging = false }: { input: AgentInput, messages?: Message[], model?: MODELS[number], tools?: ExtractPropertyFromTools<AVAILABLE_TOOLS, "type">[], afterToolCalls?: (toolCalls: ToolCallResultsWithMetadata) => AgentInput, verboseLogging?: boolean }): Promise<string> {
         // First run the agent
-        let currentCall = await this.execute({ input, messages });
+        let currentCall = await this.execute({ input, messages, model, tools });
         if (verboseLogging) console.dir(currentCall, { depth: null });
 
         // Then run the tool calls
@@ -101,7 +101,9 @@ export class Agent<MODELS extends [LLMType, ...LLMType[]] = any, AVAILABLE_TOOLS
                     ...calls.filter(call => call !== null), 
                     ...afterArray
                 ], 
-                messages: currentCall.messages 
+                messages: currentCall.messages,
+                model,
+                tools
             });
             if (verboseLogging) console.dir(currentCall, { depth: null });
         }
