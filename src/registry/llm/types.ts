@@ -5,6 +5,7 @@ export const LLMType = {
     O1: "o1",
     O1Mini: "o1-mini",
     Flash: "flash",
-    FlashThinking: "flash-thinking"
+    FlashThinking: "flash-thinking",
+    O3Mini: "o3-mini"
 } as const;
 export type LLMType = (typeof LLMType)[keyof typeof LLMType];

@@ -7,6 +7,7 @@ import { O1 } from "../../_llms/o1";
 import { O1Mini } from "../../_llms/o1-mini";
 import { FlashThinking } from "src/_llms/flash-thinking";
 import { Flash } from "src/_llms/flash";
+import { O3Mini } from "src/_llms/o3-mini";
 
 
 export const LLMRegistry = {
@@ -16,6 +17,7 @@ export const LLMRegistry = {
     [LLMType.O1]: O1,
     [LLMType.O1Mini]: O1Mini,
     [LLMType.Flash]: Flash,
-    [LLMType.FlashThinking]: FlashThinking
+    [LLMType.FlashThinking]: FlashThinking,
+    [LLMType.O3Mini]: O3Mini
 } as const satisfies Record<LLMType, LLM>
 export type LLMRegistry = typeof LLMRegistry
