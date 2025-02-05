@@ -1,6 +1,6 @@
 {
     "name": "@dubdubdublabs/agent-sdk",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "scripts": {
         "build": "tsup && tsc --emitDeclarationOnly --outDir dist",
         "dev": "bun --watch sample/simple.ts",
